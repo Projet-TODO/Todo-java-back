@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "task")
@@ -20,6 +20,7 @@ public class Task {
     private int priority_task;
     private Date deadline_task;
     private boolean achieved_task;
+    private Long id_project;
 
     @ManyToOne
     @JoinColumn(name = "id_project", nullable = false)

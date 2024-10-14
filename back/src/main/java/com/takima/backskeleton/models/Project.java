@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "project")
@@ -19,6 +19,6 @@ public class Project {
     private Date date_project;
     private Long id_user;
 
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "id_project")
     private List<Task> tasks;
 }
