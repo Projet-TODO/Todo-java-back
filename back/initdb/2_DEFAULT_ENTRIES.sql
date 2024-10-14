@@ -1,25 +1,29 @@
-INSERT INTO majors (id, name, description) VALUES (1, 'Ingéniérie du Numérique', 'Ouaiiis du code partout');
-INSERT INTO majors (id, name, description) VALUES (2, 'Structure & Matériaux', 'Beaucoup de béton et des poutres (snif elle a été renomée)');
-INSERT INTO majors (id, name, description) VALUES (3, 'Aéronautique & Espace', 'Vive le vent');
-INSERT INTO majors (id, name, description) VALUES (4, 'Data Engineering', 'Trop cool plein de données à ordonner');
-INSERT INTO majors (id, name, description) VALUES (5, 'Energie & Environnement', 'On est full green');
-INSERT INTO majors (id, name, description) VALUES (6, 'Engineering Management', 'Des managers de qualité');
-INSERT INTO majors (id, name, description) VALUES (7, 'Ingénierie & Santé', 'On connait tous les os et tous les muscles du corps humain');
-INSERT INTO majors (id, name, description) VALUES (8, 'Ingénierie & Architecture durable', 'Objectif 0 carbon');
-INSERT INTO majors (id, name, description) VALUES (9, 'Design Industriel Durable', 'Ca existait pas pour la P2022 ça');
+INSERT INTO "User" (last_name_user, first_name_user, email_user, password_user)
+VALUES 
+('Smith', 'John', 'john.smith@example.com', 'password123'),
+('Doe', 'Jane', 'jane.doe@example.com', 'securepass'),
+('Miller', 'Alice', 'alice.miller@example.com', 'alice123'),
+('Brown', 'Bob', 'bob.brown@example.com', 'bobby456');
 
-INSERT INTO students (id, first_name, last_name, birthdate, major_id) VALUES (1, 'Paul', 'Harrohide', '2002-06-15', 1);
-INSERT INTO students (id, first_name, last_name, birthdate, major_id) VALUES (2, 'Jean', 'Bonbeur', '2001-08-21', 1);
-INSERT INTO students (id, first_name, last_name, birthdate, major_id) VALUES (3, 'Alain', 'Térieur', '2000-01-11', 1);
+-- ------------------------------------------------------------
+-- Insert mock data into the Project table
+-- ------------------------------------------------------------
 
-INSERT INTO courses (id, name, hours) VALUES (1, 'Spanish', 30);
-INSERT INTO courses (id, name, hours) VALUES (2, 'German', 30);
-INSERT INTO courses (id, name, hours) VALUES (3, 'Internet of Things', 30);
-INSERT INTO courses (id, name, hours) VALUES (4, 'Thermodynamic', 30);
-INSERT INTO courses (id, name, hours) VALUES (5, 'Anatomy', 30);
-INSERT INTO courses (id, name, hours) VALUES (6, 'Maths', 30);
-INSERT INTO courses (id, name, hours) VALUES (7, 'Java', 30);
-INSERT INTO courses (id, name, hours) VALUES (8, 'Lean Management', 30);
-INSERT INTO student_course (id, student_id, course_id) VALUES (1, 1, 7);
+INSERT INTO Project (name_project, date_project, id_user)
+VALUES 
+('Project A', '2024-01-15', 1),
+('Project B', '2024-02-10', 2),
+('Project C', '2024-03-05', 1),
+('Project D', '2024-04-20', 3);
 
+-- ------------------------------------------------------------
+-- Insert mock data into the Task table
+-- ------------------------------------------------------------
 
+INSERT INTO Task (title_task, description_task, priority_task, deadline_task, achieved_task, id_project)
+VALUES 
+('Design Database', 'Design the schema for the new project', 1, '2024-01-20', FALSE, 1),
+('Write API', 'Develop the RESTful API for the project', 2, '2024-02-01', FALSE, 1),
+('Testing', 'Test the application thoroughly', 3, '2024-03-10', FALSE, 2),
+('Documentation', 'Prepare project documentation', 1, '2024-04-15', TRUE, 3),
+('Deploy to Cloud', 'Deploy the app to the cloud environment', 2, '2024-05-01', FALSE, 3);
