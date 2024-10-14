@@ -8,19 +8,17 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Table(name = "task")
+@Table(name = "project")
 @NoArgsConstructor
 @Getter
-public class Task {
+public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_task;
-    private String title_task;
-    private String description_task;
-    private int priority_task;
-    private Date deadline_task;
-    private boolean achieved_task;
+    private Long id_project;
+    private String name_project;
+    private Date date_project;
+    private Long id_user;
 
-    @ManyToOne
-    @JoinColumn(name = "id_project", nullable = false)
-    private Project project;
+    @OneToMany(mappedBy = "project")
+    private List<Task> tasks;
+}
