@@ -1,25 +1,19 @@
-INSERT INTO majors (id, name, description) VALUES (1, 'Ingéniérie du Numérique', 'Ouaiiis du code partout');
-INSERT INTO majors (id, name, description) VALUES (2, 'Structure & Matériaux', 'Beaucoup de béton et des poutres (snif elle a été renomée)');
-INSERT INTO majors (id, name, description) VALUES (3, 'Aéronautique & Espace', 'Vive le vent');
-INSERT INTO majors (id, name, description) VALUES (4, 'Data Engineering', 'Trop cool plein de données à ordonner');
-INSERT INTO majors (id, name, description) VALUES (5, 'Energie & Environnement', 'On est full green');
-INSERT INTO majors (id, name, description) VALUES (6, 'Engineering Management', 'Des managers de qualité');
-INSERT INTO majors (id, name, description) VALUES (7, 'Ingénierie & Santé', 'On connait tous les os et tous les muscles du corps humain');
-INSERT INTO majors (id, name, description) VALUES (8, 'Ingénierie & Architecture durable', 'Objectif 0 carbon');
-INSERT INTO majors (id, name, description) VALUES (9, 'Design Industriel Durable', 'Ca existait pas pour la P2022 ça');
+-- Insert users into the User table
+INSERT INTO Users (id_users, last_name_users, first_name_users, email_users, password_users) VALUES
+                                                                                             (1, 'Doe', 'John', 'john.doe@example.com', 'password1'),
+                                                                                             (2, 'Smith', 'Jane', 'jane.smith@example.com', 'password2'),
+                                                                                             (3, 'Brown', 'Charlie', 'charlie.brown@example.com', 'password3');
 
-INSERT INTO students (id, first_name, last_name, birthdate, major_id) VALUES (1, 'Paul', 'Harrohide', '2002-06-15', 1);
-INSERT INTO students (id, first_name, last_name, birthdate, major_id) VALUES (2, 'Jean', 'Bonbeur', '2001-08-21', 1);
-INSERT INTO students (id, first_name, last_name, birthdate, major_id) VALUES (3, 'Alain', 'Térieur', '2000-01-11', 1);
-
-INSERT INTO courses (id, name, hours) VALUES (1, 'Spanish', 30);
-INSERT INTO courses (id, name, hours) VALUES (2, 'German', 30);
-INSERT INTO courses (id, name, hours) VALUES (3, 'Internet of Things', 30);
-INSERT INTO courses (id, name, hours) VALUES (4, 'Thermodynamic', 30);
-INSERT INTO courses (id, name, hours) VALUES (5, 'Anatomy', 30);
-INSERT INTO courses (id, name, hours) VALUES (6, 'Maths', 30);
-INSERT INTO courses (id, name, hours) VALUES (7, 'Java', 30);
-INSERT INTO courses (id, name, hours) VALUES (8, 'Lean Management', 30);
-INSERT INTO student_course (id, student_id, course_id) VALUES (1, 1, 7);
+-- Insert projects into the Project table
+INSERT INTO Project (name_project, date_project, id_users) VALUES
+                                                              ('Project Alpha', '2023-01-01', 1),
+                                                              ('Project Beta', '2023-02-01', 2),
+                                                              ('Project Gamma', '2023-03-01', 3);
 
 
+-- Insert tasks into the Task table
+INSERT INTO Task (title_task, description_task, priority_task, deadline_task, achieved_task, id_project) VALUES
+                                                                                                             ('Task 2', 'Description for Task 2', 2, '2023-05-01', true, 1),
+                                                                                                             ('Task 3', 'Description for Task 3', 3, '2023-06-01', false, 2),
+                                                                                                             ('Task 4', 'Description for Task 4', 1, '2023-07-01', true, 2),
+                                                                                                             ('Task 5', 'Description for Task 5', 2, '2023-08-01', false, 3);

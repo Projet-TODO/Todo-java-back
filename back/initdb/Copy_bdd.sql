@@ -1,15 +1,15 @@
 -- Script PostgreSQL
 
 -- ------------------------------------------------------------
--- Table: User
+-- Table: users
 -- ------------------------------------------------------------
 
-CREATE TABLE "User" (
-                        id_user         SERIAL PRIMARY KEY,
-                        last_name_user  VARCHAR(50) NOT NULL,
-                        first_name_user VARCHAR(50) NOT NULL,
-                        email_user      VARCHAR(50) NOT NULL,
-                        password_user   VARCHAR(50) NOT NULL
+CREATE TABLE Users (
+                        id_users         SERIAL PRIMARY KEY,
+                        last_name_users  VARCHAR(50) NOT NULL,
+                        first_name_users VARCHAR(50) NOT NULL,
+                        email_users      VARCHAR(50) NOT NULL,
+                        password_users   VARCHAR(50) NOT NULL
 );
 
 -- ------------------------------------------------------------
@@ -20,8 +20,8 @@ CREATE TABLE Project (
                          id_project   SERIAL PRIMARY KEY,
                          name_project VARCHAR(50) NOT NULL,
                          date_project DATE NOT NULL,
-                         id_user      INT NOT NULL,
-                         CONSTRAINT Project_User_FK FOREIGN KEY (id_user) REFERENCES "User"(id_user) ON DELETE CASCADE
+                         id_users      INT NOT NULL,
+                         CONSTRAINT Project_Users_FK FOREIGN KEY (id_users) REFERENCES Users(id_users) ON DELETE CASCADE
 );
 
 -- ------------------------------------------------------------
