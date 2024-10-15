@@ -1,19 +1,29 @@
--- Insert users into the User table
-INSERT INTO Users (id_users, last_name_users, first_name_users, email_users, password_users) VALUES
-                                                                                             (1, 'Doe', 'John', 'john.doe@example.com', 'password1'),
-                                                                                             (2, 'Smith', 'Jane', 'jane.smith@example.com', 'password2'),
-                                                                                             (3, 'Brown', 'Charlie', 'charlie.brown@example.com', 'password3');
+INSERT INTO "User" (last_name_user, first_name_user, email_user, password_user)
+VALUES 
+('Smith', 'John', 'john.smith@example.com', 'password123'),
+('Doe', 'Jane', 'jane.doe@example.com', 'securepass'),
+('Miller', 'Alice', 'alice.miller@example.com', 'alice123'),
+('Brown', 'Bob', 'bob.brown@example.com', 'bobby456');
 
--- Insert projects into the Project table
-INSERT INTO Project (name_project, date_project, id_users) VALUES
-                                                              ('Project Alpha', '2023-01-01', 1),
-                                                              ('Project Beta', '2023-02-01', 2),
-                                                              ('Project Gamma', '2023-03-01', 3);
+-- ------------------------------------------------------------
+-- Insert mock data into the Project table
+-- ------------------------------------------------------------
 
+INSERT INTO Project (name_project, date_project, id_user)
+VALUES 
+('Project A', '2024-01-15', 1),
+('Project B', '2024-02-10', 2),
+('Project C', '2024-03-05', 1),
+('Project D', '2024-04-20', 3);
 
--- Insert tasks into the Task table
-INSERT INTO Task (title_task, description_task, priority_task, deadline_task, achieved_task, id_project) VALUES
-                                                                                                             ('Task 2', 'Description for Task 2', 2, '2023-05-01', true, 1),
-                                                                                                             ('Task 3', 'Description for Task 3', 3, '2023-06-01', false, 2),
-                                                                                                             ('Task 4', 'Description for Task 4', 1, '2023-07-01', true, 2),
-                                                                                                             ('Task 5', 'Description for Task 5', 2, '2023-08-01', false, 3);
+-- ------------------------------------------------------------
+-- Insert mock data into the Task table
+-- ------------------------------------------------------------
+
+INSERT INTO Task (title_task, description_task, priority_task, deadline_task, achieved_task, id_project)
+VALUES 
+('Design Database', 'Design the schema for the new project', 1, '2024-01-20', FALSE, 1),
+('Write API', 'Develop the RESTful API for the project', 2, '2024-02-01', FALSE, 1),
+('Testing', 'Test the application thoroughly', 3, '2024-03-10', FALSE, 2),
+('Documentation', 'Prepare project documentation', 1, '2024-04-15', TRUE, 3),
+('Deploy to Cloud', 'Deploy the app to the cloud environment', 2, '2024-05-01', FALSE, 3);
