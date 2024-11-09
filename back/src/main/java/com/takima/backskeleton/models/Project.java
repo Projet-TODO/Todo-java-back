@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.*;
 
@@ -11,6 +12,7 @@ import java.util.*;
 @Table(name = "project")
 @NoArgsConstructor
 @Getter
+@Setter
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id_project")
 public class Project {
     @Id
