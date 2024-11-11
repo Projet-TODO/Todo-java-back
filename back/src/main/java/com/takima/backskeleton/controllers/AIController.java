@@ -28,7 +28,8 @@ class   AIController {
     }
 
     @GetMapping("/ai")
-    public Project generateProgram(@RequestParam(value = "project") Project project) {
+    public ChatResponse generateProgram(@RequestParam(value = "project") String req) {
+       Project project= Project.createFromJson(req);
         String userText = "Generate a list of tasks to complete the project with the following details (Note that project_Name is the goal of the project): " +
                 "Project Name: " + project.getName_project() + ", " +
                 "Project end_Date: " + project.getDate_project() + ". " +
@@ -40,21 +41,15 @@ class   AIController {
                 "    private boolean achieved_task;";
         Message userMessage = new UserMessage(userText);
 
-        String systemText = """
-  You are a helpful AI assistant that helps people plan and manage projects,
-  you also are very knowledgeable on how to plan to achieve sports goals.
-  You should generate a list of tasks to complete the project based on the provided project details.
-  Each task should be detailed and compatible with the Task interface.
-  """;
-
-        Message systemMessage = new SystemMessage(systemText);
-
-        Prompt prompt = new Prompt(List.of(userMessage, systemMessage));
+        Prompt prompt = new Prompt(userMessage);
+        System.out.println("Prompt: " + prompt);
         var aiAnswer = chatClient.prompt(prompt).call().chatResponse();
         //project.setTasks(trim(aiAnswer.getMetadata().get));
-        return project;
+        return aiAnswer;
     }
-    private List<Task> trim(String AIAnswer) {
-
-    }
+  /*  private List<Task> trim(String AIAnswer) {
+        List<Task> tasks;
+        tasks.add(Task AA)
+    return tasks;
+    }*/
 }
