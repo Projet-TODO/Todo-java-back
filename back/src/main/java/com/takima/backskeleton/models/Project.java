@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -49,7 +50,6 @@ public class Project {
                     project.setName_project(value);
                     break;
                 case "date_project":
-                    System.out.println("date_project value: " + value);
                     try {
                         // Append missing time if necessary
                         if (value.length() == 10) {  // e.g., "2024-11-09"

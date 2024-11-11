@@ -1,6 +1,10 @@
 package com.takima.backskeleton.controllers;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.takima.backskeleton.models.Project;
 import com.takima.backskeleton.models.Task;
 import org.springframework.ai.chat.client.ChatClient;
@@ -15,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.management.monitor.StringMonitor;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,28 +35,52 @@ class   AIController {
     }
 
     @GetMapping("/ai")
-    public ChatResponse generateProgram(@RequestParam(value = "project") String req) {
+    public Project generateProgram(@RequestParam(value = "project") String req) {
        Project project= Project.createFromJson(req);
-        String userText = "Generate a list of tasks to complete the project with the following details (Note that project_Name is the goal of the project): " +
-                "Project Name: " + project.getName_project() + ", " +
-                "Project end_Date: " + project.getDate_project() + ". " +
-                "The tasks should be detailed and compatible with the Task interface.    " +
-                "    private String title_task;"+
-                "    private String description_task;" +
-                "    private int priority_task;" +
-                "    private Date deadline_task;" +
-                "    private boolean achieved_task;";
+        String userText = """
+                Using the project details below, generate a structured list of tasks in JSON format. Each task should be well-defined to support completion of the project, with accurate descriptions, priority levels, and deadlines that lead up to the project end date. Format the JSON output exactly as described to be compatible with a Java interface.
+                        
+                Each task should include:
+                        
+                title_task: a concise title for the task.
+                description_task: a clear, specific description of the task.
+                priority_task: an integer priority level (e.g., 1 for high, 2 for medium).
+                deadline_task: a date for the task deadline, leading up to""" + project.getDate_project()+"."+
+                """
+                achieved_task: always set to false.
+                Project Details:
+                        
+                Project Name:"""+ project.getName_project()+
+                "Project End Date:" +project.getDate_project()+
+                "Return the response as a JSON array where each object represents a task and do not write the ```json.";
         Message userMessage = new UserMessage(userText);
 
         Prompt prompt = new Prompt(userMessage);
-        System.out.println("Prompt: " + prompt);
         var aiAnswer = chatClient.prompt(prompt).call().chatResponse();
-        //project.setTasks(trim(aiAnswer.getMetadata().get));
-        return aiAnswer;
+        project.setTasks(parseTasks(aiAnswer.getResult().getOutput().getContent(),project));
+        return project;
     }
-  /*  private List<Task> trim(String AIAnswer) {
-        List<Task> tasks;
-        tasks.add(Task AA)
-    return tasks;
-    }*/
+    private List<Task> parseTasks(String aiAnswer, Project project) {
+        List<Task> tasks = new ArrayList<>();
+
+        // Initialize ObjectMapper with date format
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        aiAnswer = aiAnswer.replace("```json", "").replace("```", "").trim();
+        try {
+            // Deserialize JSON array string into a list of Task objects
+            Task[] taskArray = objectMapper.readValue(aiAnswer, Task[].class);
+
+            // Set project and id for each task
+            for (int i = 0; i < taskArray.length; i++) {
+                Task task = taskArray[i];
+                task.setId_task((long) i);
+                task.setProject(project);
+                tasks.add(task);
+            }
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Error parsing tasks JSON", e);
+        }
+        return tasks;
+    }
 }
