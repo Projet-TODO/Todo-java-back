@@ -29,5 +29,30 @@ public class ProjectService {
         projectDao.deleteById(id);
     }
 
+    public List<Project> findByUser(Users user) {
+        List<Project> projects = projectDao.findAll();
+        List<Project> userProjects = new ArrayList<>();
+        for (Project project : projects) {
+            if (project.getUser().getId_users().equals(user.getId_users())) {
+                userProjects.add(project);
+            }
+        }
+        return userProjects;
+    }
+
+    public List<Task> getTasks(Project project) {
+        List<Task> tasks = project.getTasks();
+        return tasks;
+    }
+    public Task addTask(Project project, Task task) {
+        List<Task> tasks = project.getTasks();
+        tasks.add(task);
+        project.setTasks(tasks);
+        projectDao.save(project);
+        return task;
+    }
+
+
+
 
 }

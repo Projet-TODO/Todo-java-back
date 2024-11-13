@@ -16,5 +16,11 @@ public class UsersService {
         return usersDao.findAll();
     }
 
+    public Users findById(Long id) {
+        return usersDao.findById(id).orElse(null);
+    }
+    public Users create(Users user) {
+        return usersDao.save(user);
+    }
 
 }

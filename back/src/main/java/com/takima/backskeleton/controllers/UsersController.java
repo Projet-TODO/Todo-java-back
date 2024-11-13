@@ -19,4 +19,14 @@ public class UsersController {
         return usersService.findAll();
     }
 
+    @GetMapping("{id}")
+    public Users findById(@PathVariable Long id) {
+        return usersService.findById(id);
+    }
+
+    @PostMapping("")
+    public Users create(@RequestBody Users user) {
+        return usersService.create(user);
+    }
+
 }

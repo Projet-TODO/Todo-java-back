@@ -1,6 +1,7 @@
 package com.takima.backskeleton.models;
 
 import com.fasterxml.jackson.annotation.*;
+import com.takima.backskeleton.services.UsersService;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,6 +38,7 @@ public class Project {
         Project project = new Project();
         jsonString = jsonString.replace("{", "").replace("}", "").replace("\"", "");
         String[] keyValuePairs = jsonString.split(",");
+        System.out.println(Arrays.toString(keyValuePairs));
         for (String pair : keyValuePairs) {
             int separatorIndex = pair.indexOf(":");
             String key = pair.substring(0, separatorIndex).trim();
@@ -62,8 +64,24 @@ public class Project {
                         throw new RuntimeException(e);
                     }
                     break;
-                // Handle other fields here
+                    case "user":
+                        Users user = new Users();
+                        System.out.println(value.replace("id_users:", "").trim());
+                        user.setId_users(Long.parseLong(value.replace("id_users:", "").trim()));
+                        project.setUser(user);
+                        System.out.println("project:   "+project.getUser().getId_users());
+                        // Handle other fields here
             }
         }
         return project;}
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id_project=" + id_project +
+                ", name_project='" + name_project + '\'' +
+                ", date_project=" + date_project +
+                ", tasks=" + tasks +
+                ", user=" + user +
+                '}';
+    }
 }
