@@ -25,6 +25,7 @@ public class Users {
     private String password_users;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Project> projects;
 @Override
 public String toString() {
