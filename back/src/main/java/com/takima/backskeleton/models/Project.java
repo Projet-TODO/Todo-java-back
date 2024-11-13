@@ -30,7 +30,6 @@ public class Project {
 
     @ManyToOne
     @JoinColumn(name = "id_users")
-    @JsonBackReference
     private Users user;
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
