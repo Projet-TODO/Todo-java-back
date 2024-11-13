@@ -4,26 +4,18 @@ package com.takima.backskeleton.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.takima.backskeleton.models.Project;
 import com.takima.backskeleton.models.Task;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.Message;
-import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
-import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.ai.chat.prompt.SystemPromptTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.management.monitor.StringMonitor;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 class   AIController {
@@ -49,7 +41,7 @@ class   AIController {
                 """
                 achieved_task: always set to false.
                 Project Details:
-                        
+                       
                 Project Name:"""+ project.getName_project()+
                 "Project End Date:" +project.getDate_project()+
                 "Return the response as a JSON array where each object represents a task and do not write the ```json.";

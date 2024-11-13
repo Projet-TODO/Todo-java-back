@@ -15,4 +15,4 @@ INSERT INTO Project (name_project, date_project, id_users) VALUES
 INSERT INTO Task (title_task, description_task, priority_task, deadline_task, achieved_task, id_project) VALUES
                                                                                                              ('Task 2', 'Description for Task 2', 2, '2023-05-01', true, 1),
                                                                                                              ('Task 3', 'Description for Task 3', 3, '2023-06-01', false, 2),
-                                                                                                             ('Task 4', 'Description for Task 4', 1, '2023-07-01', true, 2),
+                                                                                                             ('Task 4', 'Description for Task 4', 1, '2023-07-01', true, 2);
