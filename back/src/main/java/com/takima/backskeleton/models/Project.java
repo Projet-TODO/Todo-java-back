@@ -25,7 +25,7 @@ public class Project {
     private String name_project;
     private Date date_project;
 
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Task> tasks;
 
     @ManyToOne
