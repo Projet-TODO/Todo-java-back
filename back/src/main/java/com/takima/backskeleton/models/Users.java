@@ -21,7 +21,8 @@ public class Users {
 
     private String last_name_users;
     private String first_name_users;
-    private String email_users;
+    @Column(name = "email_users")
+    private String email;
     private String password_users;
 
     @OneToMany(mappedBy = "user")
@@ -33,7 +34,7 @@ public String toString() {
             "id_users=" + id_users +
             ", last_name_users='" + last_name_users + '\'' +
             ", first_name_users='" + first_name_users + '\'' +
-            ", email_users='" + email_users + '\'' +
+            ", email_users='" + email + '\'' +
             ", password_users='" + password_users + '\'' +
             ", projects=" + projects +
             '}';

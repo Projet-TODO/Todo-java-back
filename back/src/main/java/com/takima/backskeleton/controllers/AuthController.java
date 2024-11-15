@@ -10,10 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-public class LoginController {
-    @RestController
-    @RequestMapping("/auth")
-    public class AuthController {
+@RestController
+@RequestMapping("/auth")
+public class AuthController {
 
         @Autowired
         private AuthenticationService authenticationService;
@@ -29,14 +28,13 @@ public class LoginController {
             }
         }
         @RequestMapping("/login")
-        public String login(HttpServletRequest request, String username, String password) {
-            if (authenticationService.authenticate(username, password)) {
-                request.getSession().setAttribute("user", username);
-                return "redirect:/dashboard";  // Redirect to a secured page
+        public String login(HttpServletRequest request, String email, String password) {
+            if (authenticationService.authenticate(email, password)) {
+                request.getSession().setAttribute("email", email);
+                return "redirect:/";  // Redirect to a secured page
             }
             return "login";  // Return to login page on failure
         }
 
     }
 
-}
