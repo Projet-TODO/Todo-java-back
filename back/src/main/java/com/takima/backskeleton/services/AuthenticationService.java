@@ -13,8 +13,11 @@ public class AuthenticationService {
     @Autowired
     private UsersDao userRepository;
 
-    public boolean authenticate(String email, String password) {
-        Optional<Users> user = userRepository.findByEmail(email);
-        return user.isPresent() && user.get().getPassword_users().equals(password);  // In practice, don't store passwords in plain text!
+public Users authenticate(String email, String password) {
+    Optional<Users> user = userRepository.findByEmail(email);
+    if (user.isPresent() && user.get().getPassword_users().equals(password)) {
+        return user.get();
     }
+    return null;
+}
 }

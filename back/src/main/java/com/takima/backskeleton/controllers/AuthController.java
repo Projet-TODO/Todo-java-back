@@ -1,5 +1,6 @@
 package com.takima.backskeleton.controllers;
 
+import com.takima.backskeleton.models.Users;
 import com.takima.backskeleton.services.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,18 +19,20 @@ public class AuthController {
         private AuthenticationService authenticationService;
 
         @PostMapping("/login")
-        public ResponseEntity<String> login(@RequestParam String email, @RequestParam String password) {
-            boolean authenticated = authenticationService.authenticate(email, password);
+        public ResponseEntity<Users> login(@RequestParam String email, @RequestParam String password) {
+            Users authenticatedUser = authenticationService.authenticate(email, password);
 
-            if (authenticated) {
-                return ResponseEntity.ok("Login successful");
+            if (authenticatedUser != null) {
+                System.out.println("Login successful");
+                return ResponseEntity.ok(authenticatedUser);
             } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
             }
         }
         @RequestMapping("/login")
         public String login(HttpServletRequest request, String email, String password) {
-            if (authenticationService.authenticate(email, password)) {
+            Users authenticatedUser = authenticationService.authenticate(email, password);
+            if (authenticatedUser != null) {
                 request.getSession().setAttribute("email", email);
                 return "redirect:/";  // Redirect to a secured page
             }
