@@ -27,11 +27,13 @@ class   AIController {
     }
 
     @GetMapping("/ai")
-    public Project generateProgram(@RequestParam(value = "project") String req) {
-       Project project= Project.createFromJson(req);
+    public Project generateProgram(@RequestParam(value = "project") String proj, @RequestParam(value = "consignes") String consignes) {
+       Project project= Project.createFromJson(proj);
         String userText = """
-                Using the project details below, generate a structured list of tasks in JSON format. Each task should be well-defined to support completion of the project, with accurate descriptions, priority levels, and deadlines that lead up to the project end date. Format the JSON output exactly as described to be compatible with a Java interface.
+                Using the project details below and the guidelines, generate a structured list of tasks in JSON format. Each task should be well-defined to support completion of the project, with accurate descriptions, priority levels, and deadlines that lead up to the project end date. Format the JSON output exactly as described to be compatible with a Java interface.
                         
+                Also here are the guidelines to create the tasks:""
+                """+consignes+"""
                 Each task should include:
                         
                 title_task: a concise title for the task.
