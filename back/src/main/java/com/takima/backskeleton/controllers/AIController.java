@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.takima.backskeleton.models.Project;
 import com.takima.backskeleton.models.Task;
+import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.UserMessage;
@@ -18,16 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 class   AIController {
-
     private final ChatClient chatClient;
 
-    public AIController(ChatClient.Builder chatClient) {
-        this.chatClient = chatClient.build();
-    }
-
     @GetMapping("/ai")
-    public Project generateProgram(@RequestParam(value = "project") String proj, @RequestParam(value = "consignes") String consignes) {
+    public List<Task> generateProgram(@RequestParam(value = "project") String proj, @RequestParam(value = "consignes") String consignes) {
        Project project= Project.createFromJson(proj);
         String userText = """
                 Using the project details below and the guidelines, generate a structured list of tasks in JSON format. Each task should be well-defined to support completion of the project, with accurate descriptions, priority levels, and deadlines that lead up to the project end date. Format the JSON output exactly as described to be compatible with a Java interface.
@@ -41,6 +38,7 @@ class   AIController {
                 priority_task: an integer priority level (e.g., 1 for high, 2 for medium).
                 deadline_task: a date for the task deadline, leading up to""" + project.getDate_project()+"."+
                 """
+                eg : "2024-11-09T21:00:00.000Z"
                 achieved_task: always set to false.
                 Project Details:
                        
@@ -51,8 +49,7 @@ class   AIController {
 
         Prompt prompt = new Prompt(userMessage);
         var aiAnswer = chatClient.prompt(prompt).call().chatResponse();
-        project.setTasks(parseTasks(aiAnswer.getResult().getOutput().getContent(),project));
-        return project;
+        return parseTasks(aiAnswer.getResult().getOutput().getContent(),project);
     }
     private List<Task> parseTasks(String aiAnswer, Project project) {
         List<Task> tasks = new ArrayList<>();
