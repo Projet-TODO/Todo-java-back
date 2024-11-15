@@ -19,4 +19,9 @@ public class TaskController {
         return taskService.findAll();
     }
 
+    @PostMapping("")
+    public Task save(@RequestBody Task task) {
+        return taskService.save(task);
+    }
+
 }
