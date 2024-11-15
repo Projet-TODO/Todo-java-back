@@ -18,8 +18,8 @@ public class AuthController {
         private AuthenticationService authenticationService;
 
         @PostMapping("/login")
-        public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
-            boolean authenticated = authenticationService.authenticate(username, password);
+        public ResponseEntity<String> login(@RequestParam String email, @RequestParam String password) {
+            boolean authenticated = authenticationService.authenticate(email, password);
 
             if (authenticated) {
                 return ResponseEntity.ok("Login successful");
