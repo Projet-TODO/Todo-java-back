@@ -9,7 +9,6 @@ public class ProjectDTO {
     private Date date_project;
     private Long id_user;
 
-    // Getters and Setters
     public Long getId_project() {
         return id_project;
     }

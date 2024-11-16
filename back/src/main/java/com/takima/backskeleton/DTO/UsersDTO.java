@@ -6,7 +6,6 @@ public class UsersDTO {
     private String email_user;
     private String password_user;
 
-    // Getters and Setters
     public Long getId_user() {
         return id_user;
     }

@@ -20,7 +20,7 @@ public class UsersService {
         return usersDao.findById(id).orElse(null);
     }
     public Users create(Users user) {
-        user.setId_users(null); // Ensure the ID is not set
+        user.setId_users(null);
         return usersDao.save(user);
     }
 

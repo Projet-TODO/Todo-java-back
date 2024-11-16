@@ -1,12 +1,10 @@
 package com.takima.backskeleton.models;
 
 import com.fasterxml.jackson.annotation.*;
-import com.takima.backskeleton.services.UsersService;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -52,10 +50,9 @@ public class Project {
                     break;
                 case "date_project":
                     try {
-                        // Append missing time if necessary
-                        if (value.length() == 10) {  // e.g., "2024-11-09"
+                        if (value.length() == 10) {
                             value += "T00:00:00.000Z";
-                        } else if (value.length() == 13) { // e.g., "2024-11-09 21"
+                        } else if (value.length() == 13) {
                             value = value.replace(" ", "T") + ":00:00.000Z";
                         }
                         project.setDate_project(dateFormat.parse(value));
@@ -69,7 +66,6 @@ public class Project {
                         user.setId_users(Long.parseLong(value.replace("id_users:", "").trim()));
                         project.setUser(user);
                         System.out.println("project:   "+project.getUser().getId_users());
-                        // Handle other fields here
             }
         }
         return project;}
