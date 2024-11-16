@@ -35,7 +35,7 @@ class   AIController {
                         
                 title_task: a concise title for the task.
                 description_task: a clear, specific description of the task.
-                priority_task: an integer priority level (e.g., 1 for high, 2 for medium).
+                priority_task: an integer priority level (e.g., 1 for high, 2 for medium, 3 for low).
                 deadline_task: a date for the task deadline, leading up to""" + project.getDate_project()+"."+
                 """
                 eg : "2024-11-09T21:00:00.000Z"
